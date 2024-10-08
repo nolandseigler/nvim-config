@@ -942,6 +942,18 @@ require('lazy').setup({
       },
     },
   },
+  {
+    'mfussenegger/nvim-dap-python',
+    event = 'VeryLazy',
+    ft = 'python',
+    dependencies = {
+      'mfussenegger/nvim-dap',
+      'rcarriga/nvim-dap-ui',
+    },
+    config = function(_, opts)
+      require('dap-python').setup()
+    end,
+  },
 
   -- DAP UI setup
   {
