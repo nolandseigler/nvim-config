@@ -807,19 +807,19 @@ require('lazy').setup({
   {
     'mfussenegger/nvim-dap',
     event = 'VeryLazy',
-    --configurations = {
-    --python = {
-    --{
-    --type = 'python',
-    --request = 'launch',
-    --name = 'Launch file',
-    --program = '${file}',
-    --pythonPath = function()
-    --return '/usr/bin/python'
-    --end;
-    --},
-    --},
-    --},
+    configurations = {
+      python = {
+        {
+          type = 'python',
+          request = 'launch',
+          name = 'Launch file',
+          program = '${file}',
+          pythonPath = function()
+            return './venv/bin/python'
+          end,
+        },
+      },
+    },
     keys = {
       {
         '<leader>db',
