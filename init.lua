@@ -709,7 +709,7 @@ require('lazy').setup({
         -- Can also be a function to return dynamic value.
         -- If not provided, the path will be inferred by checking for
         -- virtual envs in the local directory and for Pipenev/Poetry configs
-        -- python = ".venv/bin/python",
+        -- python = "./.venv/bin/python",
         -- Returns if a given file path is a test file.
         -- NB: This function is called a lot so don't perform any heavy tasks within it.
         -- !!EXPERIMENTAL!! Enable shelling out to `pytest` to discover test
@@ -807,19 +807,19 @@ require('lazy').setup({
   {
     'mfussenegger/nvim-dap',
     event = 'VeryLazy',
-    configurations = {
-      python = {
-        {
-          type = 'python',
-          request = 'launch',
-          name = 'Launch file',
-          program = '${file}',
-          pythonPath = function()
-            return './venv/bin/python'
-          end,
-        },
-      },
-    },
+    --configurations = {
+    --python = {
+    --{
+    --type = 'python',
+    --request = 'launch',
+    --name = 'Launch file',
+    --program = '${file}',
+    --pythonPath = function()
+    --return './.venv/bin/python'
+    --end,
+    --},
+    --},
+    --},
     keys = {
       {
         '<leader>db',
@@ -951,7 +951,15 @@ require('lazy').setup({
       'rcarriga/nvim-dap-ui',
     },
     config = function(_, opts)
-      require('dap-python').setup()
+      require('dap-python').setup './.venv/bin/python'
+      require('dap-python').test_runner = 'pytest'
+      table.insert(require('dap').configurations.python, {
+        type = 'python',
+        request = 'launch',
+        name = 'My custom launch configuration',
+        program = '${file}',
+        -- ... more options, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings
+      })
     end,
   },
 
